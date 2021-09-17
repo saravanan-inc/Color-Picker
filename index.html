@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Searcher</title>
+
+    <!-- Styles -->
+    <style>
+        .search {
+            margin: 20px;
+        }
+        .boxes {
+            display: flex;
+            margin: 20px;
+        }
+
+        .color-box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Container -->
+    <!-- Searchbar -->
+    <!-- Color Boxes -->
+
+    <div class="container">
+        <div class="search">
+            <input type="text" id="search">
+        </div>
+        <div class="boxes">
+        </div>
+    </div>
+
+    <script>
+        // Initial
+        const boxes = document.getElementsByClassName('boxes')[0]
+        const search = document.getElementById('search')
+
+        // Empty Variable
+        let searchExist;
+
+        // Data of colors
+        colors = [
+            {
+                name: 'red',
+                color: '#F37381',
+            },
+            {
+                name: 'red',
+                color: '#F07775',
+            },
+            {
+                name: 'yellow',
+                color: '#F2E635',
+            },
+            {
+                name: 'blue',
+                color: '#90CBFB',
+            },
+            {
+                name: 'blue',
+                color: '#110066',
+            },
+            {
+                name: 'black',
+                color: '#57523E',
+            },
+            {
+                name: 'black',
+                color: '#A4A68A',
+            },
+            {
+                name: 'purple',
+                color: '#C82C8D',
+            },
+            {
+                name: 'purple',
+                color: '#9A11B1',
+            },
+            
+        ]
+
+        // Creating the color boxes
+        function boxcreator(colorsArray){
+            boxes.innerHTML = ""
+
+            if (colorsArray.length === 0) {
+                console.log(colorsArray);
+                let h1 = document.createElement('h1')
+                h1.appendChild(document.createTextNode("Sorry, Color Does Not Exist😅"))
+                boxes.appendChild(h1)
+            }
+
+            colorsArray.map(color => {
+                let div = document.createElement('div')
+                div.classList.add('color-box', color.name)
+                div.style.backgroundColor = color.color
+                boxes.appendChild(div)
+                })
+            
+        }
+
+        boxcreator(colors)
+
+        // Search Function
+        // search.onkeyup = searchColors
+        search.onchange = searchColors
+
+        function searchColors(e) {
+            if (!e.target.value) {
+                return boxcreator(colors)
+            }
+
+            e.preventDefault()
+            searchExist = colors.filter((color) => color.name == e.target.value.toLowerCase())            
+            boxcreator(searchExist)
+        }
+    </script>
+</body>
+</html>
